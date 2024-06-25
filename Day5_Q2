@@ -1,0 +1,86 @@
+/*
+
+Question 2:
+Create a function to compare two singly linked lists and determine if they are identical.
+
+Inputs:
+Two singly linked lists.
+Output:
+"identical" if the lists are the same, otherwise "different".
+Example:
+
+Linked list 1: 1 -> 2 -> 3
+
+Linked list 2: 1 -> 2 -> 3
+
+Output: identical
+
+ */
+
+public class Day5_Q2 {
+    private Node head;
+    private Node tail;
+    private int size;
+
+    public Day5_Q2() {
+        this.size = 0;
+    }
+    public void insertLast(int val) {
+        Node node = new Node(val);
+        if (tail == null) {
+            head = node;
+            tail = node;
+        } else {
+            tail.next = node;
+            tail = node;
+        }
+            size += 1;
+        }
+        public static String compareLists(Day5_Q2 list1, Day5_Q2 list2) {
+        Node current1 = list1.head;
+        Node current2 = list2.head;
+
+        while (current1 != null && current2 != null) {
+            if (current1.value != current2.value) {
+                return "different";
+            }
+            current1 = current1.next;
+            current2 = current2.next;
+        }
+
+            // If one list is longer than the other
+            if (current1 != null || current2 != null) {
+                return "different";
+            }
+            return "identical";
+        }
+        private class Node {
+            private int value;
+            private Node next;
+
+            public Node(int value) {
+                this.value = value;
+                this.next = null;
+            }
+        }
+
+        public static void main(String[] args) {
+            Day5_Q2 list1 = new Day5_Q2();
+            list1.insertLast(1);
+            list1.insertLast(2);
+            list1.insertLast(3);
+
+            Day5_Q2 list2 = new Day5_Q2();
+            list2.insertLast(1);
+            list2.insertLast(2);
+            list2.insertLast(3);
+
+            Day5_Q2 list3 = new Day5_Q2();
+            list3.insertLast(1);
+            list3.insertLast(2);
+            list3.insertLast(4);
+
+            System.out.println(compareLists(list1, list2));
+            System.out.println(compareLists(list1, list3));
+        }
+}
