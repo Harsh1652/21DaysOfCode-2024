@@ -1,0 +1,87 @@
+/*
+Question 1:
+Given a singly linked list, write a function to print the elements in reverse order.
+
+Inputs:
+A singly linked list.
+Output:
+The elements of the list in reverse order.
+Example:
+
+Linked list: 1 -> 2 -> 3
+
+Output: 3 2 1
+ */
+
+import java.util.LinkedList;
+import java.util.Stack;
+
+public class Day5_Q1 {
+
+        private Node head;
+        private Node tail;
+        private int size;
+
+        public Day5_Q1() {
+            this.size = 0;
+        }
+
+        public void insertFirst(int val) {
+            Node node = new Node(val);
+            node.next = head;
+            head = node;
+
+            if (tail == null) {
+                tail = head;
+            }
+
+            size += 1;
+        }
+
+        public void display() {
+            Node temp = head;
+            while (temp != null) {
+                System.out.print(temp.value + " -> ");
+                temp = temp.next;
+            }
+            System.out.println("END");
+        }
+
+        public void displayInReverse() {
+            Stack<Integer> stack = new Stack<>();
+            Node temp = head;
+            while (temp != null) {
+                stack.push(temp.value);
+                temp = temp.next;
+            }
+            while (!stack.isEmpty()) {
+                System.out.print(stack.pop() + " -> ");
+            }
+            System.out.println("END");
+        }
+
+        private class Node {
+            private int value;
+            private Node next;
+
+            public Node(int value) {
+                this.value = value;
+                this.next = null;
+            }
+        }
+
+        public static void main(String[] args) {
+            Day5_Q1 list = new Day5_Q1();
+            list.insertFirst(3);
+            list.insertFirst(2);
+            list.insertFirst(1);
+
+            System.out.println("Original List:");
+            list.display();
+
+            System.out.println("Reversed List:");
+            list.displayInReverse();
+        }
+    }
+
+
