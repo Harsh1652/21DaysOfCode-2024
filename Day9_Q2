@@ -1,0 +1,60 @@
+/*
+
+Question 2:
+Given an array of integers and an integer k, determine the number of (i, j) pairs where i < j and the sum of the pair is divisible by k.
+
+Inputs:
+An array of integers.
+
+An integer k.
+
+Output:
+The number of valid (i, j) pairs.
+Example:
+arr = [1, 3, 2, 6, 1, 2]
+
+k = 3
+
+Output: 5
+
+ */
+
+import java.util.HashMap;
+import java.util.Map;
+public class Day9_Q2 {
+    
+
+    public static int countDivisiblePairs(int[] arr, int k) {
+        // Frequency map to store remainders
+        Map<Integer, Integer> remainderFrequency = new HashMap<>();
+        int count = 0;
+
+        // Iterate through the array
+        for (int num : arr) {
+            // Calculate the remainder of the current number
+            int remainder = num % k;
+            // If remainder is negative, make it positive
+            if (remainder < 0) {
+                remainder += k;
+            }
+
+            // Find the complement that would make the sum divisible by k
+            int complement = (k - remainder) % k;
+
+            // Add the frequency of the complement to the count
+            count += remainderFrequency.getOrDefault(complement, 0);
+
+            // Update the frequency of the current remainder
+            remainderFrequency.put(remainder, remainderFrequency.getOrDefault(remainder, 0) + 1);
+        }
+
+        return count;
+    }
+
+    public static void main(String[] args) {
+        int[] arr = {1, 3, 2, 6, 1, 2};
+        int k = 3;
+        int result = countDivisiblePairs(arr, k);
+        System.out.println(result);  // Output: 5
+    }
+}
