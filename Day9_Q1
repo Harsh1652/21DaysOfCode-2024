@@ -1,0 +1,70 @@
+/*
+
+Question 1:
+Design a stack that supports push, pop, and retrieving the maximum element efficiently.
+
+Inputs:
+Operations to be performed on the stack.
+Output:
+Results of the operations.
+Example:
+stack.push(1)
+
+stack.push(2)
+
+stack.get_max() # Output: 2
+
+stack.pop()
+
+stack.get_max() # Output: 1
+
+
+ */
+
+import java.util.Stack;
+public class Day9_Q1 {
+
+    private Stack<Integer> mainStack;
+    private Stack<Integer> maxStack;
+
+    public Day9_Q1() {
+        mainStack = new Stack<>();
+        maxStack = new Stack<>();
+    }
+
+    public void push(int x) {
+        mainStack.push(x);
+        if (maxStack.isEmpty() || x >= maxStack.peek()) {
+            maxStack.push(x);
+        }
+    }
+
+    public int pop() {
+        int poppedElement = mainStack.pop();
+        if (poppedElement == maxStack.peek()) {
+            maxStack.pop();
+        }
+        return poppedElement;
+    }
+
+    public int top() {
+        return mainStack.peek();
+    }
+
+    public int getMax() {
+        return maxStack.peek();
+    }
+
+    public boolean isEmpty() {
+        return mainStack.isEmpty();
+    }
+
+    public static void main(String[] args) {
+        Day9_Q1 stack = new Day9_Q1();
+        stack.push(1);
+        stack.push(2);
+        System.out.println(stack.getMax()); 
+        stack.pop();
+        System.out.println(stack.getMax());
+    }
+}
