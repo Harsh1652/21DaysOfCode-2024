@@ -1,0 +1,90 @@
+/*
+
+Question 2:
+Implement a queue using two stacks. The queue should support standard operations like enqueue and dequeue.
+
+Inputs/Outputs:
+Methods for queue operations.
+Example:
+queue.enqueue(1)
+
+queue.enqueue(2)
+
+queue.dequeue() # Output: 1
+
+queue.dequeue() # Output: 2
+
+ */
+
+import java.util.Stack;
+public class Day10_Q2 {
+    private Stack<Integer> stack1;
+    private Stack<Integer> stack2;
+
+        // Constructor to initialize the stacks
+    public Day10_Q2() {
+        stack1 = new Stack<>();
+        stack2 = new Stack<>();
+    }
+
+    // Enqueue operation
+    public void enqueue(int x) {
+        stack1.push(x);
+    }
+
+    // Dequeue operation
+    public int dequeue() {
+        // If both stacks are empty, throw an exception
+        if (stack1.isEmpty() && stack2.isEmpty()) {
+            throw new IllegalStateException("Queue is empty");
+        }
+
+        // If stack2 is empty, move all elements from stack1 to stack2
+        if (stack2.isEmpty()) {
+            while (!stack1.isEmpty()) {
+                stack2.push(stack1.pop());
+            }
+        }
+
+        // Pop the top element from stack2
+        return stack2.pop();
+    }
+
+    // Peek operation (optional)
+    public int peek() {
+        // If both stacks are empty, throw an exception
+        if (stack1.isEmpty() && stack2.isEmpty()) {
+            throw new IllegalStateException("Queue is empty");
+        }
+
+        // If stack2 is empty, move all elements from stack1 to stack2
+        if (stack2.isEmpty()) {
+            while (!stack1.isEmpty()) {
+                stack2.push(stack1.pop());
+            }
+        }
+
+        // Return the top element of stack2 without removing it
+        return stack2.peek();
+    }
+
+    // Main method for testing
+    public static void main(String[] args) {
+        Day10_Q2 queue = new Day10_Q2();
+        queue.enqueue(1);
+        queue.enqueue(2);
+
+        System.out.println(queue.dequeue()); 
+        System.out.println(queue.dequeue()); 
+
+        queue.enqueue(3);
+        queue.enqueue(4);
+
+        System.out.println(queue.peek()); 
+        System.out.println(queue.dequeue()); 
+        System.out.println(queue.dequeue()); 
+    }
+}
+
+
+
