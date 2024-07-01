@@ -1,0 +1,61 @@
+/*
+
+Question 1:
+Write a function to reverse a queue using recursive calls.
+
+Inputs:
+A queue.
+Output:
+The reversed queue.
+Example:
+queue = [1, 2, 3]
+
+Output: [3, 2, 1]
+
+ */
+
+
+import java.util.LinkedList;
+import java.util.Queue;
+
+public class Day10_Q1 {
+
+    // Function to reverse the queue using recursion
+    public static void reverseQueue(Queue<Integer> queue) {
+        // Base case: if the queue is empty, return
+        if (queue.isEmpty()) {
+            return;
+        }
+
+        // Dequeue the front element
+        int front = queue.poll();
+
+        // Recursively reverse the remaining queue
+        reverseQueue(queue);
+
+        // Enqueue the front element back to the queue
+        queue.offer(front);
+    }
+
+    // Helper function to print the queue
+    public static void printQueue(Queue<Integer> queue) {
+        for (Integer element : queue) {
+            System.out.print(element + " ");
+        }
+        System.out.println();
+    }
+    public static void main(String[] args) {
+        Queue<Integer> queue = new LinkedList<>();
+        queue.offer(1);
+        queue.offer(2);
+        queue.offer(3);
+
+        System.out.println("Original queue: ");
+        printQueue(queue);
+
+        reverseQueue(queue);
+
+        System.out.println("Reversed queue: ");
+        printQueue(queue);
+    }
+}
